@@ -1,0 +1,25 @@
+CREATE TABLE PRODUTOS (
+	id INTEGER,
+	produto VARCHAR(255) NOT NULL,
+	preco DECIMAL(5) NOT NULL,
+	qtd INTEGER NOT NULL,
+	categoria VARCHAR (255),
+	PRIMARY KEY (id, categoria)
+) PARTITION BY LIST (categoria)
+
+CREATE SEQUENCE produto_sequence
+	start 1
+	increment 1
+
+CREATE TABLE PRODUTOS_ELETRODOMESTICOS PARTITION OF PRODUTOS
+	FOR VALUES IN ('Eletrodomésticos')
+	
+CREATE TABLE PRODUTOS_FRUTAS PARTITION OF PRODUTOS
+	FOR VALUES IN ('Frutas')
+
+CREATE TABLE PRODUTOS_HIGIENE PARTITION OF PRODUTOS
+	FOR VALUES IN ('Higiêne')
+	
+INSERT INTO PRODUTOS VALUES (nextval('produto_sequence'), 'Vinho', 29.5, 50, 'Bebidas')
+
+select tableoid::regclass, * from produtos order by id
