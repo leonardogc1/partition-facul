@@ -1,1 +1,1 @@
-# partition-facul
+Scripts SQL para criação de tabelas particionadas.
